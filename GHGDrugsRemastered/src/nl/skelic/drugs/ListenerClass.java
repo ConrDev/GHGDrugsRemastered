@@ -2,11 +2,9 @@ package nl.skelic.drugs;
 
 import java.util.ArrayList;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,28 +16,18 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
-import org.bukkit.plugin.RegisteredServiceProvider;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import net.milkbowl.vault.economy.Economy;
 
-public class ListenerClass extends JavaPlugin implements Listener {
+public class ListenerClass implements Listener {
 	
-	private static Economy econ = null;
+	private Economy econ;
 	
-	private boolean setupEconomy() {
-        if (getServer().getPluginManager().getPlugin("Vault") == null) {
-            return false;
-        }
-        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-        if (rsp == null) {
-            return false;
-        }
-        econ = rsp.getProvider();
-        return econ != null;
-    }
+	public ListenerClass() {
+		econ = Main.getEconomy();
+	}
 	
 	@EventHandler
 	public void invDragEvent(InventoryDragEvent e) {
@@ -55,7 +43,7 @@ public class ListenerClass extends JavaPlugin implements Listener {
 	public void invClickEvent(InventoryClickEvent e) {
 		Inventory inv = e.getInventory();
 		Player player = (Player) e.getWhoClicked();
-		World world = player.getWorld();
+//		World world = player.getWorld();
 		String name = inv.getName();
 		
 		ItemStack cokeIcon = new ItemStack(Material.SUGAR, 1);
@@ -99,7 +87,6 @@ public class ListenerClass extends JavaPlugin implements Listener {
 				if (econ.has(player, 100)) {
 					econ.bankDeposit("DrugsShop", 100);
 					player.getInventory().addItem(new ItemStack(weedIcon));
-					return;
 				}
 				else {
 					player.sendMessage("§cJe hebt niet genoeg geld!");
@@ -166,7 +153,4 @@ public class ListenerClass extends JavaPlugin implements Listener {
 		}
 	}
 	
-	 public static Economy getEconomy() {
-	        return econ;
-	    }
 }

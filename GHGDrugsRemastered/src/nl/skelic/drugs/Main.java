@@ -18,6 +18,10 @@ public class Main extends JavaPlugin implements Listener {
 	
 	@Override
 	public void onEnable() {
+		//Je moet wel de economy setuppen :P
+		if(!setupEconomy()) {
+			Bukkit.getServer().getPluginManager().disablePlugin(this);
+		}
 		loadConfiguration();
 		
 		PluginManager pm = Bukkit.getServer().getPluginManager();
@@ -51,12 +55,10 @@ public class Main extends JavaPlugin implements Listener {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     	   Player player = (Player) sender;
     	   if (command.getName().equalsIgnoreCase("dshop")) {
-    		   if (econ.bankBalance("DrugsShop") != null) {
-    			   Menus.openDshop(player);
-    		   }
-    		   else {
+    		   if (econ.bankBalance("DrugsShop") == null) {
     			   player.sendMessage("§cEr bestaat nog geen DrugsShop! Misschien moet u er één beginnen ;)");
-    		   }   
+    		   }
+    		   Menus.openDshop(player);   
     	   }
         return false;
     }
