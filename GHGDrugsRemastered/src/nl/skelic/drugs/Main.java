@@ -45,8 +45,10 @@ public class Main extends JavaPlugin implements Listener {
 
     public void loadConfiguration() {
         getConfig().options().copyDefaults(true);
-        getConfig().addDefault("drugs.verslaafd", "true");
-        getConfig().addDefault("drugs.gebruik", "3");
+        getConfig().addDefault("cocaïne.verslaafd", "true");
+        getConfig().addDefault("cocaïne.gebruik", "1");
+        getConfig().addDefault("weed.verslaafd", "true");
+        getConfig().addDefault("weed.gebruik", "5");
         saveConfig();
         getLogger().info(ChatColor.GOLD + "Configuratie Herladen");
         Bukkit.broadcastMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "De GHGDrugs Remastered Plugin is geladen");
