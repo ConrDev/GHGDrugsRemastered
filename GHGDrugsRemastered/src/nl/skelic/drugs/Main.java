@@ -21,7 +21,6 @@ public class Main extends JavaPlugin implements Listener {
 		if(!setupEconomy()) {
 			Bukkit.getServer().getPluginManager().disablePlugin(this);
 		}
-		
 		loadConfiguration();
 		
 		PluginManager pm = Bukkit.getServer().getPluginManager();
@@ -61,7 +60,7 @@ public class Main extends JavaPlugin implements Listener {
     		   if (econ.bankBalance("DrugsShop") == null) {
     			   player.sendMessage("§cEr bestaat nog geen DrugsShop! Misschien moet u er één beginnen ;)");
     		   }
-			   Menus.openDshop(player);  
+			   Menus.openDshop(player);
     	   }
         return true;
     }

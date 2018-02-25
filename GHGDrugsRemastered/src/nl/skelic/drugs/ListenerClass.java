@@ -16,7 +16,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
-//import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -88,7 +87,6 @@ public class ListenerClass implements Listener {
 				if (econ.has(player, 100)) {
 					econ.withdrawPlayer(player, 100);
 					player.getInventory().addItem(new ItemStack(weedIcon));
-					return;
 				}
 				else {
 					player.sendMessage("§cJe hebt niet genoeg geld!");
