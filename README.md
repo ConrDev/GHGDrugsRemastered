@@ -1,3 +1,4 @@
-GHGDrugsRemastered is made for GewoonHDEnterprise!
+# GHGDrugsRemastered 
+Made for GewoonHDEnterprise!
 
 This plugin is made by SkelicStylz
