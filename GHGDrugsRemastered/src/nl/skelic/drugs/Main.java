@@ -11,43 +11,57 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.milkbowl.vault.economy.Economy;
+import nl.skelic.drugs.ConfigManager;
 
 public class Main extends JavaPlugin implements Listener {
 	
 	private static Economy econ = null;
+	private static ConfigManager cfgm;
 	
 	@Override
 	public void onEnable() {
 		if(!setupEconomy()) {
 			Bukkit.getServer().getPluginManager().disablePlugin(this);
 		}
-		loadConfiguration();
 		
 		PluginManager pm = Bukkit.getServer().getPluginManager();
 		pm.registerEvents(new ListenerClass(), this);
 		
 		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "--------{De GHGDrugs Plugin}-------");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.YELLOW + "|       Created by: SkelicStylz   |");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.YELLOW + "|           Version: v1.0         |");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.YELLOW + "|      Plugin Status:  Enabled    |");
+		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "|" + ChatColor.YELLOW + "       Created by: SkelicStylz   " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "|" + ChatColor.YELLOW + "           Version: v1.2         " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "|" + ChatColor.YELLOW + "      Plugin Status:  Enabled    " + ChatColor.GOLD + "|");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "-----------------------------------");
+		loadConfigManager();
+		loadConfiguration();
 	}
 	
 	@Override
 	public void onDisable() {
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "-------{De GHGDrugs Plugin}--------");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.YELLOW + "|       Created by: SkelicStylz   |");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.YELLOW + "|           Version: v1.0         |");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.YELLOW + "|      Plugin Status: Disabled    |");
+		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "--------{De GHGDrugs Plugin}-------");
+		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "|" + ChatColor.YELLOW + "       Created by: SkelicStylz   " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "|" + ChatColor.YELLOW + "           Version: v1.2         " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "|" + ChatColor.YELLOW + "      Plugin Status: Disabled    " + ChatColor.GOLD + "|");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "-----------------------------------");
+	}
+	
+	void reload() {
+		cfgm.reloadPlayers();
+	}
+	
+	public void loadConfigManager() {
+		cfgm = new ConfigManager();
+		cfgm.setup();
+		cfgm.savePlayers();
+		cfgm.reloadPlayers();
 	}
 
     public void loadConfiguration() {
         getConfig().options().copyDefaults(true);
-        getConfig().addDefault("cocaïne.verslaafd", "true");
-        getConfig().addDefault("cocaïne.gebruik", "1");
-        getConfig().addDefault("weed.verslaafd", "true");
-        getConfig().addDefault("weed.gebruik", "5");
+        getConfig().addDefault("cocaïne.verslavend", true);
+        getConfig().addDefault("cocaïne.gebruik", 1);
+        getConfig().addDefault("weed.verslavend", true);
+        getConfig().addDefault("weed.gebruik", 5);
         saveConfig();
         getLogger().info(ChatColor.GOLD + "Configuratie Herladen");
         Bukkit.broadcastMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "De GHGDrugs Remastered Plugin is geladen");
@@ -57,9 +71,6 @@ public class Main extends JavaPlugin implements Listener {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     	   Player player = (Player) sender;
     	   if (command.getName().equalsIgnoreCase("dshop")) {
-    		   if (econ.bankBalance("DrugsShop") == null) {
-    			   player.sendMessage("§cEr bestaat nog geen DrugsShop! Misschien moet u er één beginnen ;)");
-    		   }
 			   Menus.openDshop(player);
     	   }
         return true;

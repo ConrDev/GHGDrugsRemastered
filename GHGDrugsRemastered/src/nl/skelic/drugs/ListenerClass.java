@@ -15,13 +15,18 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.material.MaterialData;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
+//import org.bukkit.potion.PotionEffect;
+//import org.bukkit.potion.PotionEffectType;
+import org.bukkit.plugin.Plugin;
 
 import net.milkbowl.vault.economy.Economy;
+import nl.skelic.drugs.drugs;
 
 public class ListenerClass implements Listener {
+	
+	private Plugin plugin = Main.getPlugin(Main.class);
+	
+	private drugs drugs = new drugs();
 	
 	private Economy econ;
 	
@@ -39,33 +44,11 @@ public class ListenerClass implements Listener {
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void invClickEvent(InventoryClickEvent e) {
 		Inventory inv = e.getInventory();
 		Player player = (Player) e.getWhoClicked();
 		String name = inv.getName();
-		
-		ItemStack cokeIcon = new ItemStack(Material.SUGAR, 1);
-		ItemMeta cokeMeta = cokeIcon.getItemMeta();
-		cokeMeta.setDisplayName("§l§oCocaïne");
-		cokeIcon.setItemMeta(cokeMeta);
-		ArrayList<String> cokeLore = new ArrayList<String>();
-		cokeLore.add("§c§lLet op!");
-		cokeLore.add("Je zult gaan trippen.");
-		cokeMeta.setLore(cokeLore);
-		
-		ItemStack weedIcon = new ItemStack(Material.LONG_GRASS);
-	    MaterialData md = weedIcon.getData();
-	    md.setData((byte)2);
-	    weedIcon.setData(md);
-		ItemMeta weedMeta = weedIcon.getItemMeta();
-		weedMeta.setDisplayName("§a§l§oWeed");
-		weedIcon.setItemMeta(weedMeta);
-		ArrayList<String> weedLore = new ArrayList<String>();
-		weedLore.add("§c§lLet op!");
-		weedLore.add("Het effect zal 24 uur duren.");
-		weedMeta.setLore(weedLore);
 		
 		if (name.equals(ChatColor.BOLD + "Drugs Shop")) {
 			e.setCancelled(true);
@@ -73,29 +56,31 @@ public class ListenerClass implements Listener {
 			if (slot < 0) {
 				return;
 			}
-			if (slot == 0) {
+			if (slot == 10) {
 				if (econ.has(player, 5000)) {
 					econ.withdrawPlayer(player, 5000);
-					player.getInventory().addItem(new ItemStack(cokeIcon));
+					drugs.Coke(player);
 					return;
 				}
 				else {
 					player.sendMessage("§cJe hebt niet genoeg geld!");
 				}
 			}
-			if (slot == 1) {
+			if (slot == 19) {
 				if (econ.has(player, 100)) {
 					econ.withdrawPlayer(player, 100);
-					player.getInventory().addItem(new ItemStack(weedIcon));
+					drugs.Weed(player);
 				}
 				else {
 					player.sendMessage("§cJe hebt niet genoeg geld!");
 				}
 			}
+			if (slot == 31) {
+				player.closeInventory();
+			}
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
 		if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
@@ -104,25 +89,31 @@ public class ListenerClass implements Listener {
 			ItemStack cokeIcon = new ItemStack(Material.SUGAR, 1);
 			ItemMeta cokeMeta = cokeIcon.getItemMeta();
 			cokeMeta.setDisplayName("§l§oCocaïne");
+			ArrayList<String> cokeLore = new ArrayList<String>();
+			cokeLore.add("§c§lLet op!");
+			cokeLore.add("&r&7Je zult gaan trippen.");
+			cokeMeta.setLore(cokeLore);
 			cokeIcon.setItemMeta(cokeMeta);
 			
-			ItemStack weedIcon = new ItemStack(Material.LONG_GRASS);
-		    MaterialData md = weedIcon.getData();
-		    md.setData((byte)2);
-		    weedIcon.setData(md);
-			ItemMeta weedMeta = weedIcon.getItemMeta();
-			weedMeta.setDisplayName("§a§l§oWeed");
+			ItemStack weedIcon = new ItemStack(Material.LONG_GRASS, 1,(byte) 2);
+	    	ItemMeta weedMeta = weedIcon.getItemMeta();
+	    	weedMeta.setDisplayName("§a§l§oWeed");
+	    	ArrayList<String> weedLore = new ArrayList<String>();
+	    	weedLore.add("§c§lLet op!");
+	    	weedLore.add("&r&7Het effect zal 24 uur duren.");
+			weedMeta.setLore(weedLore);
 			weedIcon.setItemMeta(weedMeta);
 			
 			if (item.getType().equals(Material.SUGAR) && item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
 				if (item.getItemMeta().getDisplayName() == ("§l§oCocaïne")) {
 					Player player = e.getPlayer();
-					//player.performCommand("effect " + player.getName() + " minecraft:slowness 1 255 true");
-					//player.performCommand("effect " + player.getName() + " minecraft:nausea 1 4 true");
-					player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1, 2, true));
-					player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 1, 4, true));
+					plugin.getConfig().set("Verslaafde." + player.getUniqueId() + ".Aan", "Cocaïne");
+					player.performCommand("effect " + player.getName() + " minecraft:slowness 1 255 true");
+					player.performCommand("effect " + player.getName() + " minecraft:nausea 1 4 true");
+					//player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1, 2, true));
+					//player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 1, 4, true));
 					player.playSound(player.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 1, 2);
-					//player.performCommand("effect " + player.getName() + " minecraft:speed 30 4 true");
+					player.performCommand("effect " + player.getName() + " minecraft:speed 30 4 true");
 					//player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 30, 4, true));
 					//player.getInventory().removeItem(cokeIcon);
 					//player.updateInventory();
@@ -132,13 +123,13 @@ public class ListenerClass implements Listener {
 			if (item.getType().equals(Material.LONG_GRASS) && item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
 				if (item.getItemMeta().getDisplayName() == ("§a§l§oWeed")) {
 					Player player = e.getPlayer();
-					//player.performCommand("effect " + player.getName() + " minecraft:slowness 1 255 true");
+					player.performCommand("effect " + player.getName() + " minecraft:slowness 1 255 true");
 					player.playSound(player.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 1, 2);
 					//player.performCommand("effect " + player.getName() + " minecraft:nausea 1638 0 true");
-					//player.performCommand("effect " + player.getName() + " minecraft:slowness 1638 2 true");
-					player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1638, 2, true));
+					player.performCommand("effect " + player.getName() + " minecraft:slowness 1638 2 true");
+					//player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1638, 2, true));
 					//player.performCommand("effect " + player.getName() + " minecraft:resistance 1638 4 true");
-					player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 1638, 4, true));
+					//player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 1638, 4, true));
 					//player.getInventory().removeItem(weedIcon);
 					//player.updateInventory();
 				}

@@ -1,6 +1,6 @@
 main: nl.skelic.drugs.Main
 name: GHGDrugsRemastered
-version: 1.0
+version: 1.2
 author: SkelicStylz
 description: GHGDrugs Remastered Let you use Drugs in Minecraft (Don't do Drugs in RealLife).
 commands:
