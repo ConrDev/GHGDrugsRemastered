@@ -1,7 +1,5 @@
 package nl.skelic.drugs;
 
-import java.util.ArrayList;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -19,24 +17,16 @@ public class Menus {
 		
 		ItemStack cokeIcon = new ItemStack(Material.SUGAR, 1);
 		ItemMeta cokeMeta = cokeIcon.getItemMeta();
-		cokeMeta.setDisplayName("§l§oCocaïne §r§l§71g");
+		cokeMeta.setDisplayName("§l§oCocaïne §r§2§l€5.000§l§7/100g");
 		cokeIcon.setItemMeta(cokeMeta);
-		ArrayList<String> cokeLore = new ArrayList<String>();
-		cokeLore.add("§c§lLet op!");
-		cokeLore.add("Je zult gaan trippen.");
-		cokeMeta.setLore(cokeLore);
 		
 		ItemStack weedIcon = new ItemStack(Material.LONG_GRASS);
 	    MaterialData md = weedIcon.getData();
 	    md.setData((byte)2);
 	    weedIcon.setData(md);
 		ItemMeta weedMeta = weedIcon.getItemMeta();
-		weedMeta.setDisplayName("§a§l§oWeed §r§l§71g");
+		weedMeta.setDisplayName("§a§l§oWeed §r§2§l€100§l§7/100g");
 		weedIcon.setItemMeta(weedMeta);
-		ArrayList<String> weedLore = new ArrayList<String>();
-		weedLore.add("§c§lLet op!");
-		weedLore.add("Het effect zal 24 uur duren.");
-		weedMeta.setLore(weedLore);
 		
 		inv.setItem(0, cokeIcon);
 		inv.setItem(1, weedIcon);

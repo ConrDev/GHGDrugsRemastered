@@ -2,11 +2,9 @@ package nl.skelic.drugs;
 
 import java.util.ArrayList;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,28 +16,19 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
-import org.bukkit.plugin.RegisteredServiceProvider;
-import org.bukkit.plugin.java.JavaPlugin;
+//import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import net.milkbowl.vault.economy.Economy;
 
-public class ListenerClass extends JavaPlugin implements Listener {
+public class ListenerClass implements Listener {
 	
-	private static Economy econ = null;
+	private Economy econ;
 	
-	private boolean setupEconomy() {
-        if (getServer().getPluginManager().getPlugin("Vault") == null) {
-            return false;
-        }
-        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-        if (rsp == null) {
-            return false;
-        }
-        econ = rsp.getProvider();
-        return econ != null;
-    }
+	public ListenerClass() {
+		econ = Main.getEconomy();
+	}
 	
 	@EventHandler
 	public void invDragEvent(InventoryDragEvent e) {
@@ -51,11 +40,11 @@ public class ListenerClass extends JavaPlugin implements Listener {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void invClickEvent(InventoryClickEvent e) {
 		Inventory inv = e.getInventory();
 		Player player = (Player) e.getWhoClicked();
-		World world = player.getWorld();
 		String name = inv.getName();
 		
 		ItemStack cokeIcon = new ItemStack(Material.SUGAR, 1);
@@ -87,7 +76,7 @@ public class ListenerClass extends JavaPlugin implements Listener {
 			}
 			if (slot == 0) {
 				if (econ.has(player, 5000)) {
-					econ.bankDeposit("DrugsShop", 5000);
+					econ.withdrawPlayer(player, 5000);
 					player.getInventory().addItem(new ItemStack(cokeIcon));
 					return;
 				}
@@ -97,7 +86,7 @@ public class ListenerClass extends JavaPlugin implements Listener {
 			}
 			if (slot == 1) {
 				if (econ.has(player, 100)) {
-					econ.bankDeposit("DrugsShop", 100);
+					econ.withdrawPlayer(player, 100);
 					player.getInventory().addItem(new ItemStack(weedIcon));
 					return;
 				}
@@ -108,6 +97,7 @@ public class ListenerClass extends JavaPlugin implements Listener {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
 		if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
@@ -117,10 +107,6 @@ public class ListenerClass extends JavaPlugin implements Listener {
 			ItemMeta cokeMeta = cokeIcon.getItemMeta();
 			cokeMeta.setDisplayName("§l§oCocaïne");
 			cokeIcon.setItemMeta(cokeMeta);
-			ArrayList<String> cokeLore = new ArrayList<String>();
-			cokeLore.add("§c§lLet op!");
-			cokeLore.add("Je zult gaan trippen.");
-			cokeMeta.setLore(cokeLore);
 			
 			ItemStack weedIcon = new ItemStack(Material.LONG_GRASS);
 		    MaterialData md = weedIcon.getData();
@@ -129,10 +115,6 @@ public class ListenerClass extends JavaPlugin implements Listener {
 			ItemMeta weedMeta = weedIcon.getItemMeta();
 			weedMeta.setDisplayName("§a§l§oWeed");
 			weedIcon.setItemMeta(weedMeta);
-			ArrayList<String> weedLore = new ArrayList<String>();
-			weedLore.add("§c§lLet op!");
-			weedLore.add("Het effect zal 24 uur duren.");
-			weedMeta.setLore(weedLore);
 			
 			if (item.getType().equals(Material.SUGAR) && item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
 				if (item.getItemMeta().getDisplayName() == ("§l§oCocaïne")) {
@@ -165,8 +147,4 @@ public class ListenerClass extends JavaPlugin implements Listener {
 			}
 		}
 	}
-	
-	 public static Economy getEconomy() {
-	        return econ;
-	    }
 }
