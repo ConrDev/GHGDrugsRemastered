@@ -16,33 +16,42 @@ import nl.skelic.drugs.ConfigManager;
 public class Main extends JavaPlugin implements Listener {
 	
 	private static Economy econ = null;
-	private static ConfigManager cfgm;
+	private ConfigManager cfgm;
+	private static Main instance;
+	
+	public static final String PREFIX = ChatColor.AQUA + "[GHG] " + ChatColor.WHITE;
 	
 	@Override
 	public void onEnable() {
 		if(!setupEconomy()) {
 			Bukkit.getServer().getPluginManager().disablePlugin(this);
 		}
+		instance = this;
+		cfgm = new ConfigManager();
 		
 		PluginManager pm = Bukkit.getServer().getPluginManager();
 		pm.registerEvents(new ListenerClass(), this);
 		
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "--------{De GHGDrugs Plugin}-------");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "|" + ChatColor.YELLOW + "       Created by: SkelicStylz   " + ChatColor.GOLD + "|");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "|" + ChatColor.YELLOW + "           Version: v1.2         " + ChatColor.GOLD + "|");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "|" + ChatColor.YELLOW + "      Plugin Status:  Enabled    " + ChatColor.GOLD + "|");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "-----------------------------------");
+		Bukkit.getConsoleSender().sendMessage(PREFIX + ChatColor.GOLD + "--------{De GHGDrugs Plugin}-------");
+		Bukkit.getConsoleSender().sendMessage(PREFIX + ChatColor.GOLD + "|" + ChatColor.YELLOW + "       Created by: SkelicStylz   " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(PREFIX + ChatColor.GOLD + "|" + ChatColor.YELLOW + "           Version: v1.2         " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(PREFIX + ChatColor.GOLD + "|" + ChatColor.YELLOW + "      Plugin Status:  Enabled    " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(PREFIX + ChatColor.GOLD + "-----------------------------------");
 		loadConfigManager();
 		loadConfiguration();
 	}
 	
 	@Override
 	public void onDisable() {
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "--------{De GHGDrugs Plugin}-------");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "|" + ChatColor.YELLOW + "       Created by: SkelicStylz   " + ChatColor.GOLD + "|");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "|" + ChatColor.YELLOW + "           Version: v1.2         " + ChatColor.GOLD + "|");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "|" + ChatColor.YELLOW + "      Plugin Status: Disabled    " + ChatColor.GOLD + "|");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "-----------------------------------");
+		Bukkit.getConsoleSender().sendMessage(PREFIX + ChatColor.GOLD + "--------{De GHGDrugs Plugin}-------");
+		Bukkit.getConsoleSender().sendMessage(PREFIX + ChatColor.GOLD + "|" + ChatColor.YELLOW + "       Created by: SkelicStylz   " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(PREFIX + ChatColor.GOLD + "|" + ChatColor.YELLOW + "           Version: v1.2         " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(PREFIX + ChatColor.GOLD + "|" + ChatColor.YELLOW + "      Plugin Status: Disabled    " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(PREFIX + ChatColor.GOLD + "-----------------------------------");
+	}
+	
+	public static Main getInstance() {
+		return instance;
 	}
 	
 	void reload() {
@@ -50,7 +59,6 @@ public class Main extends JavaPlugin implements Listener {
 	}
 	
 	public void loadConfigManager() {
-		cfgm = new ConfigManager();
 		cfgm.setup();
 		cfgm.savePlayers();
 		cfgm.reloadPlayers();
@@ -64,7 +72,7 @@ public class Main extends JavaPlugin implements Listener {
         getConfig().addDefault("weed.gebruik", 5);
         saveConfig();
         getLogger().info(ChatColor.GOLD + "Configuratie Herladen");
-        Bukkit.broadcastMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "De GHGDrugs Remastered Plugin is geladen");
+        Bukkit.broadcastMessage(Main.PREFIX + ChatColor.GOLD + "De GHGDrugs Remastered Plugin is geladen");
     }
     
 	@Override

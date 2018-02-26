@@ -14,8 +14,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public class ConfigManager {
 	
-	private Main plugin = Main.getPlugin(Main.class);
-	
+	private Main plugin = Main.getInstance();
 	// Files & File Config
 	public FileConfiguration playerscfg;
 	public File playersfile;
@@ -35,12 +34,12 @@ public class ConfigManager {
 			try {
 				playersfile.createNewFile();
 			} catch (IOException e) {
-				Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.RED + "Could not create the players.yml file!");
+				Bukkit.getServer().getConsoleSender().sendMessage(Main.PREFIX + ChatColor.RED + "Could not create the players.yml file!");
 			} 
 		}
 		
 		playerscfg = YamlConfiguration.loadConfiguration(playersfile);
-		Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GREEN + "The players.yml file has been created!");
+		Bukkit.getServer().getConsoleSender().sendMessage(Main.PREFIX + ChatColor.GREEN + "The players.yml file has been created!");
 	}
 	
 	public FileConfiguration getPlayers() {
@@ -50,16 +49,16 @@ public class ConfigManager {
 	public void savePlayers() {
 		try {
 			playerscfg.save(playersfile);
-			Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GREEN + "The players.yml file has been saved!");
+			Bukkit.getServer().getConsoleSender().sendMessage(Main.PREFIX + ChatColor.GREEN + "The players.yml file has been saved!");
 			
 		} catch (IOException e) {
-			Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.RED + "Could not save the players.yml file!");
+			Bukkit.getServer().getConsoleSender().sendMessage(Main.PREFIX + ChatColor.RED + "Could not save the players.yml file!");
 		}
 	}
 	
 	public void reloadPlayers() {
 		playerscfg = YamlConfiguration.loadConfiguration(playersfile);
-		Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "The players.yml file has been reloaded!");
+		Bukkit.getServer().getConsoleSender().sendMessage(Main.PREFIX + ChatColor.GOLD + "The players.yml file has been reloaded!");
 	}
 	    
 	/*@EventHandler
