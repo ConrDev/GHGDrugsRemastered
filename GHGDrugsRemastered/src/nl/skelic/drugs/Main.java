@@ -16,7 +16,10 @@ import nl.skelic.drugs.ConfigManager;
 public class Main extends JavaPlugin implements Listener {
 	
 	private static Economy econ = null;
-	private static ConfigManager cfgm;
+	private ConfigManager cfgm;
+	private static Main instance;
+	
+	public static final String PREFIX = ChatColor.AQUA + "[GHG] " + ChatColor.WHITE;
 	
 	public String prefix = (ChatColor.AQUA + "[GHG] ");
 	
@@ -25,6 +28,8 @@ public class Main extends JavaPlugin implements Listener {
 		if(!setupEconomy()) {
 			Bukkit.getServer().getPluginManager().disablePlugin(this);
 		}
+		instance = this;
+		cfgm = new ConfigManager();
 		
 		PluginManager pm = Bukkit.getServer().getPluginManager();
 		pm.registerEvents(new ListenerClass(), this);
@@ -47,12 +52,15 @@ public class Main extends JavaPlugin implements Listener {
 		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "-----------------------------------");
 	}
 	
+	public static Main getInstance() {
+		return instance;
+	}
+	
 	void reload() {
 		cfgm.reloadPlayers();
 	}
 	
 	public void loadConfigManager() {
-		cfgm = new ConfigManager();
 		cfgm.setup();
 		cfgm.savePlayers();
 		cfgm.reloadPlayers();
@@ -66,7 +74,7 @@ public class Main extends JavaPlugin implements Listener {
         getConfig().addDefault("weed.gebruik", 5);
         saveConfig();
         getLogger().info(ChatColor.GOLD + "Configuratie Herladen");
-        Bukkit.broadcastMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "De GHGDrugs Remastered Plugin is geladen");
+        Bukkit.broadcastMessage(Main.PREFIX + ChatColor.GOLD + "De GHGDrugs Remastered Plugin is geladen");
     }
     
 	@Override
