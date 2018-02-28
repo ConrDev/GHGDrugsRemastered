@@ -11,7 +11,8 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.milkbowl.vault.economy.Economy;
-import nl.skelic.drugs.ConfigManager;
+import nl.skelic.events.ListenerClass;
+import nl.skelic.managers.ConfigManager;
 
 public class Main extends JavaPlugin implements Listener {
 	

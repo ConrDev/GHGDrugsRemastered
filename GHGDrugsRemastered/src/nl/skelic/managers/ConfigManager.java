@@ -1,4 +1,4 @@
-package nl.skelic.drugs;
+package nl.skelic.managers;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +11,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 //import org.bukkit.event.player.PlayerJoinEvent;
 
 import net.md_5.bungee.api.ChatColor;
+import nl.skelic.drugs.Main;
 
 public class ConfigManager {
 	

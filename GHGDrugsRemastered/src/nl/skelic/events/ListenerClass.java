@@ -1,4 +1,4 @@
-package nl.skelic.drugs;
+package nl.skelic.events;
 
 import java.util.ArrayList;
 
@@ -20,13 +20,15 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
 import net.milkbowl.vault.economy.Economy;
-import nl.skelic.drugs.drugs;
+import nl.skelic.drugs.Drugs;
+import nl.skelic.drugs.Main;
+import nl.skelic.drugs.Menus;
 
 public class ListenerClass implements Listener {
 	
-	private Plugin plugin = Main.getPlugin(Main.class);
+	private Plugin plugin = Main.getInstance();
 	
-	private drugs drugs = new drugs();
+	private Drugs drugs = Drugs.getDrugs();
 	
 	private Economy econ;
 	
@@ -39,6 +41,14 @@ public class ListenerClass implements Listener {
 		Inventory inv = e.getInventory();
 		String name = inv.getName();
 		if (name.equals(ChatColor.BOLD + "Drugs Shop")) {
+			e.setCancelled(true);
+			return;
+		}
+		if (name.equals(ChatColor.BOLD + "Drugs Shop | §a§lSoftdrugs")) {
+			e.setCancelled(true);
+			return;
+		}
+		if (name.equals(ChatColor.BOLD + "Drugs Shop | §c§lSoftdrugs")) {
 			e.setCancelled(true);
 			return;
 		}
@@ -77,12 +87,24 @@ public class ListenerClass implements Listener {
 					//player.sendMessage("§cJe hebt niet genoeg geld!");
 				//}
 			}
-			if (slot == 31) {
+			if (slot == 22) {
 				player.closeInventory();
 			}
 		}
 		
-		if (name.equals(ChatColor.BOLD + "Drugs Shop | Softdrugs")) {
+		if (name.equals(ChatColor.BOLD + "Drugs Shop | §a§lSoftdrugs")) {
+			e.setCancelled(true);
+			int slot = e.getSlot();
+			if (slot < 0) {
+				return;
+			}
+			if (slot == 31) {
+				Menus.drugsShop(player);
+			}
+			
+		}
+		
+		if (name.equals(ChatColor.BOLD + "Drugs Shop | §c§lHarddrugs")) {
 			e.setCancelled(true);
 			int slot = e.getSlot();
 			if (slot < 0) {

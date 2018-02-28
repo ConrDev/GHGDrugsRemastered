@@ -4,11 +4,18 @@ import java.util.ArrayList;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class drugs implements Listener {
+public class Drugs {
+	
+	private static Drugs drugs = new Drugs();
+	
+	private Drugs() { }
+	
+	public static Drugs getDrugs() {
+		return drugs;
+	}
 	
 	public void Coke(Player player) {
 		ItemStack cokeIcon = new ItemStack(Material.SUGAR, 1);
