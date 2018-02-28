@@ -57,27 +57,41 @@ public class ListenerClass implements Listener {
 				return;
 			}
 			if (slot == 10) {
-				if (econ.has(player, 5000)) {
-					econ.withdrawPlayer(player, 5000);
-					drugs.Coke(player);
-					return;
-				}
-				else {
-					player.sendMessage("§cJe hebt niet genoeg geld!");
-				}
+				Menus.softDrugs(player);
+				//if (econ.has(player, 5000)) {
+					//econ.withdrawPlayer(player, 5000);
+					//drugs.Coke(player);
+					//return;
+				//}
+				//else {
+					//player.sendMessage("§cJe hebt niet genoeg geld!");
+				//}
 			}
-			if (slot == 19) {
-				if (econ.has(player, 100)) {
-					econ.withdrawPlayer(player, 100);
-					drugs.Weed(player);
-				}
-				else {
-					player.sendMessage("§cJe hebt niet genoeg geld!");
-				}
+			if (slot == 11) {
+				Menus.hardDrugs(player);
+				//if (econ.has(player, 100)) {
+					//econ.withdrawPlayer(player, 100);
+					//drugs.Weed(player);
+				//}
+				//else {
+					//player.sendMessage("§cJe hebt niet genoeg geld!");
+				//}
 			}
 			if (slot == 31) {
 				player.closeInventory();
 			}
+		}
+		
+		if (name.equals(ChatColor.BOLD + "Drugs Shop | Softdrugs")) {
+			e.setCancelled(true);
+			int slot = e.getSlot();
+			if (slot < 0) {
+				return;
+			}
+			if (slot == 31) {
+				Menus.drugsShop(player);
+			}
+			
 		}
 	}
 	

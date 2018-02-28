@@ -18,6 +18,8 @@ public class Main extends JavaPlugin implements Listener {
 	private static Economy econ = null;
 	private static ConfigManager cfgm;
 	
+	public String prefix = (ChatColor.AQUA + "[GHG] ");
+	
 	@Override
 	public void onEnable() {
 		if(!setupEconomy()) {
@@ -27,22 +29,22 @@ public class Main extends JavaPlugin implements Listener {
 		PluginManager pm = Bukkit.getServer().getPluginManager();
 		pm.registerEvents(new ListenerClass(), this);
 		
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "--------{De GHGDrugs Plugin}-------");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "|" + ChatColor.YELLOW + "       Created by: SkelicStylz   " + ChatColor.GOLD + "|");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "|" + ChatColor.YELLOW + "           Version: v1.2         " + ChatColor.GOLD + "|");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "|" + ChatColor.YELLOW + "      Plugin Status:  Enabled    " + ChatColor.GOLD + "|");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "-----------------------------------");
+		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "--------{De GHGDrugs Plugin}-------");
+		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "       Created by: SkelicStylz   " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "           Version: v" + getDescription().getVersion() + "         " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "      Plugin Status:  Enabled    " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "-----------------------------------");
 		loadConfigManager();
 		loadConfiguration();
 	}
 	
 	@Override
 	public void onDisable() {
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "--------{De GHGDrugs Plugin}-------");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "|" + ChatColor.YELLOW + "       Created by: SkelicStylz   " + ChatColor.GOLD + "|");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "|" + ChatColor.YELLOW + "           Version: v1.2         " + ChatColor.GOLD + "|");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "|" + ChatColor.YELLOW + "      Plugin Status: Disabled    " + ChatColor.GOLD + "|");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "[GHG] " + ChatColor.GOLD + "-----------------------------------");
+		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "--------{De GHGDrugs Plugin}-------");
+		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "       Created by: SkelicStylz   " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "           Version: v" + getDescription().getVersion() + "         " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "      Plugin Status: Disabled    " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "-----------------------------------");
 	}
 	
 	void reload() {
@@ -71,7 +73,7 @@ public class Main extends JavaPlugin implements Listener {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     	   Player player = (Player) sender;
     	   if (command.getName().equalsIgnoreCase("dshop")) {
-			   Menus.openDshop(player);
+			   Menus.drugsShop(player);
     	   }
         return true;
     }
