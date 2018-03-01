@@ -1,4 +1,4 @@
-package nl.skelic.drugs;
+package nl.skelic.utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,12 +6,14 @@ import java.io.IOException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import nl.skelic.drugs.Main;
+
 public class Util {
 	
 	@SuppressWarnings("unused")
 	private Main plugin;
 	
-	Util(Main pluginInstance) {
+	public Util(Main pluginInstance) {
 		plugin = pluginInstance;
 	}
 	

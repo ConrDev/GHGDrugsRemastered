@@ -14,6 +14,7 @@ import nl.skelic.commands.DshopCMD;
 import nl.skelic.events.ListenerClass;
 import nl.skelic.files.PlayerData;
 import nl.skelic.managers.ConfigManager;
+import nl.skelic.utils.Util;
 
 @SuppressWarnings("unused")
 public class Main extends JavaPlugin implements Listener {
@@ -24,7 +25,7 @@ public class Main extends JavaPlugin implements Listener {
 	private Util util;
 	private PlayerData playerData;
 	
-	public static final String prefix = (ChatColor.AQUA + "[GHG] " + ChatColor.WHITE);
+	public static final String prefix = (ChatColor.AQUA + "[GHG] " + ChatColor.RESET);
 	
 	@Override
 	public void onEnable() {

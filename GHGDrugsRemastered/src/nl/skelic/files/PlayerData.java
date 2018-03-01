@@ -13,8 +13,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import net.md_5.bungee.api.ChatColor;
 import nl.skelic.drugs.Main;
-import nl.skelic.drugs.Util;
-//import nl.skelic.drugs.Util;
+import nl.skelic.utils.Util;
 
 public class PlayerData implements Listener {
 	

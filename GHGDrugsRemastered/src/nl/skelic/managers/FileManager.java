@@ -27,19 +27,6 @@ public class FileManager {
 		this.config = YamlConfiguration.loadConfiguration(file);
 	}
 	
-	public void PlayerDataManager(Main main, String fileName) {
-		this.main = main;
-		this.file = new File(main.getDataFolder() + File.separator + "PlayerData" + File.separator, fileName);
-		if(!file.exists()) {
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		this.config = YamlConfiguration.loadConfiguration(file);
-	}
-	
 	public void save() {
 		try {
 			config.save(file);

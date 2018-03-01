@@ -1,6 +1,6 @@
 main: nl.skelic.drugs.Main
 name: GHGDrugsRemastered
-version: 1.3
+version: 1.4
 author: SkelicStylz
 description: GHGDrugs Remastered Let you use Drugs in Minecraft (Don't do Drugs in RealLife).
 commands:
@@ -8,4 +8,4 @@ commands:
     description: This opens the Drugs Shop
     usage: /dshop
     permission: ghgdrugs.dshop
-    permission-message: You don't have permission to go in the Drugs Shop.
+    permission-message: [GHG] Sorry you don't have permissions to preform that command!
