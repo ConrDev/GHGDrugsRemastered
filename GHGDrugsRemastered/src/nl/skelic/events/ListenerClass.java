@@ -28,8 +28,10 @@ public class ListenerClass implements Listener {
 	
 	private Plugin plugin = Main.getInstance();
 	
+	@SuppressWarnings("unused")
 	private Drugs drugs = Drugs.getDrugs();
 	
+	@SuppressWarnings("unused")
 	private Economy econ;
 	
 	public ListenerClass() {
