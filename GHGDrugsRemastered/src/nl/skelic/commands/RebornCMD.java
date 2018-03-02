@@ -5,23 +5,23 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import nl.skelic.menus.Menus;
+import nl.skelic.menus.RebornMenu;
 import nl.skelic.utils.MsgUtil;
 
-public class DshopCMD implements CommandExecutor {
+public class RebornCMD implements CommandExecutor {
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!(sender instanceof Player)) {
 			sender.sendMessage(MsgUtil.NOTPLR.getMessage());
-			return true;
+			return false;
 		}
 		Player player = (Player) sender;
-		if (!player.hasPermission("ghgdrugs.dshop")) {
+		if (!player.hasPermission("ghgdrugs.reborn")) {
 			sender.sendMessage(MsgUtil.NOPERM.getMessage());
 			return true;
 		}
-    	if (command.getName().equalsIgnoreCase("dshop")) {
-    		Menus.drugsShop(player);
+    	if (command.getName().equalsIgnoreCase("reborn")) {
+    		RebornMenu.Open(player);
     		return true;
     	} else {
     		sender.sendMessage(MsgUtil.CMDNF.getMessage());

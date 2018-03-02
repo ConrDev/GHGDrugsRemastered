@@ -22,7 +22,7 @@ import org.bukkit.plugin.Plugin;
 import net.milkbowl.vault.economy.Economy;
 import nl.skelic.drugs.Drugs;
 import nl.skelic.drugs.Main;
-import nl.skelic.drugs.Menus;
+import nl.skelic.menus.Menus;
 
 public class ListenerClass implements Listener {
 	

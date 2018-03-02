@@ -8,9 +8,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import nl.skelic.drugs.Main;
 
+@SuppressWarnings("unused")
 public class Util {
 	
-	@SuppressWarnings("unused")
 	private Main plugin;
 	
 	public Util(Main pluginInstance) {
@@ -32,4 +32,5 @@ public class Util {
 			e.printStackTrace();
 		}
 	}
+	
 }

@@ -2,8 +2,10 @@ package nl.skelic.files;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -20,11 +22,33 @@ public class PlayerData implements Listener {
 	private Main plugin;
 	private Util util;
 	public FileConfiguration playerDataConfig;
+	public YamlConfiguration playerConfig;
 	public File playerDataFile;
 	
 	public PlayerData(Main pluginInstance) {
 		plugin = pluginInstance;
 		util = plugin.getUtil();
+	}
+	
+	public boolean load(UUID playerUUID) {
+		playerDataFile = new File(plugin.getDataFolder() + File.separator + "PlayerData" + File.separator, playerUUID + ".yml");
+		try {
+			if (!playerDataFile.exists()) {
+			
+				playerDataFile.createNewFile();
+				Bukkit.getConsoleSender().sendMessage(Main.prefix + ChatColor.GOLD + "Creating PlayerData for " + playerUUID);
+				
+			}
+			try {
+				playerConfig.load(playerDataFile);
+			} catch (InvalidConfigurationException e) {
+				e.printStackTrace();
+			}
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	@EventHandler
@@ -45,8 +69,12 @@ public class PlayerData implements Listener {
 			playerDataConfig.set("addicted", false);
 			Bukkit.getConsoleSender().sendMessage(Main.prefix + ChatColor.GOLD + "Adding addicted variable for " + player.getUniqueId());
 		}
-		if (!playerDataConfig.contains("which_life")) {
-			playerDataConfig.set("which_life", 1);
+		if (!playerDataConfig.contains("addicted_to")) {
+			playerDataConfig.set("addicted_to", "");
+			Bukkit.getConsoleSender().sendMessage(Main.prefix + ChatColor.GOLD + "Adding addicted_to variable for " + player.getUniqueId());
+		}
+		if (!playerDataConfig.contains("life")) {
+			playerDataConfig.set("life", 1);
 			Bukkit.getConsoleSender().sendMessage(Main.prefix + ChatColor.GOLD + "Adding which_life variable for " + player.getUniqueId());
 		}
 		util.saveFile(playerDataConfig, playerDataFile);

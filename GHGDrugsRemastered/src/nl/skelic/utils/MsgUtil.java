@@ -18,4 +18,8 @@ public enum MsgUtil {
 	public String getMessage() {
 		return message;
 	}
+	
+	public String colorMessage(String message) {
+		return ChatColor.translateAlternateColorCodes('&', message);
+	}
 }

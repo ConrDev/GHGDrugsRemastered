@@ -1,4 +1,4 @@
-package nl.skelic.drugs;
+package nl.skelic.menus;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

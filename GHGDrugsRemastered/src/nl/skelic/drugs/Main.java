@@ -10,10 +10,11 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.milkbowl.vault.economy.Economy;
-import nl.skelic.commands.DshopCMD;
+import nl.skelic.commands.*;
 import nl.skelic.events.ListenerClass;
 import nl.skelic.files.PlayerData;
 import nl.skelic.managers.ConfigManager;
+import nl.skelic.utils.SkullUtil;
 import nl.skelic.utils.Util;
 
 @SuppressWarnings("unused")
@@ -23,6 +24,7 @@ public class Main extends JavaPlugin implements Listener {
 	private ConfigManager cfgm;
 	private static Main instance;
 	private Util util;
+	private SkullUtil skullUtil;
 	private PlayerData playerData;
 	
 	public static final String prefix = (ChatColor.AQUA + "[GHG] " + ChatColor.RESET);
@@ -35,6 +37,7 @@ public class Main extends JavaPlugin implements Listener {
 		}
 		
 		util = new Util(this);
+		skullUtil = new SkullUtil(this);
 		
 		/*if(!getDataFolder().exists()) {
 			getDataFolder().mkdirs();
@@ -48,12 +51,14 @@ public class Main extends JavaPlugin implements Listener {
 		instance = this;
 		cfgm = new ConfigManager();
 		
+		//Loading Events
 		PluginManager pm = Bukkit.getServer().getPluginManager();
 		pm.registerEvents(new ListenerClass(), this);
 		pm.registerEvents(playerData = new PlayerData(this), this);
 		
 		//Loading Commands
 		getCommand("dshop").setExecutor(new DshopCMD());
+		getCommand("reborn").setExecutor(new RebornCMD());
 		
 		//Finished Message
 		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "--------{De GHGDrugs Plugin}-------");
@@ -113,6 +118,10 @@ public class Main extends JavaPlugin implements Listener {
 	
 	public Util getUtil() {
 		return util;
+	}
+	
+	public SkullUtil getSkullUtil() {
+		return skullUtil;
 	}
 	
 	public static Economy getEconomy() {

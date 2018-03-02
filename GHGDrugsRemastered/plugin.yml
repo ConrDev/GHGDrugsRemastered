@@ -8,4 +8,9 @@ commands:
     description: This opens the Drugs Shop
     usage: /dshop
     permission: ghgdrugs.dshop
-    permission-message: [GHG] Sorry you don't have permissions to preform that command!
+    permission-message: Sorry you don't have permissions to preform that command!
+  reborn:
+    description: If you don't wanne be a druggie anymore then you can rebirth!
+    usage: /reborn
+    permission: ghgdrugs.reborn
+    permission-message: Sorry you don't have permissions to preform that command!
