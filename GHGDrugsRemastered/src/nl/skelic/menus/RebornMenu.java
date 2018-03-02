@@ -41,7 +41,7 @@ public class RebornMenu implements Listener {
 	}
 	@SuppressWarnings("deprecation")
 	public static void Open(Player player) {
-		playerDataFile = new File(plugin.getDataFolder() + File.separator + "PlayerData" + File.separator, player.getUniqueId().toString() + ".yml");
+		playerDataFile = new File(plugin.getDataFolder() + File.separator + "PlayerData" + File.separator, "bb598933-f545-44cf-a965-c019807dfe2f" /*player.getUniqueId().toString()*/ + ".yml");
 		playerDataConfig = YamlConfiguration.loadConfiguration(playerDataFile);
 		
 		ItemStack skullItem = new ItemStack(Material.SKULL_ITEM, 1,(short) SkullType.PLAYER.ordinal());
@@ -49,7 +49,7 @@ public class RebornMenu implements Listener {
 		skullMeta.setOwner(player.getName());
 		skullMeta.setDisplayName("§6§l" + player.getName());
 		ArrayList<String> skullLore = new ArrayList<String>();
-		skullLore.add("Life: " + playerDataConfig.getConfigurationSection("wich_life").getString("wich_life") /*+ playerDataConfig.get("wich_life")*/);
+		skullLore.add("Life: " + playerDataConfig.getConfigurationSection("wich_life").getInt("wich_life") /*+ playerDataConfig.get("wich_life")*/);
 		if (playerDataConfig.getConfigurationSection("addicted") == playerDataConfig.getConfigurationSection("addicted").getKeys(false)) {
 			skullLore.add("Isn't addicted.");
 		} else {
@@ -68,7 +68,7 @@ public class RebornMenu implements Listener {
 	@SuppressWarnings("deprecation")
 	public static void Menu(Player player) {
 		Inventory inv = Bukkit.createInventory(null, 27, ChatColor.BOLD + "Reborn Menu");
-		playerDataFile = new File(plugin.getDataFolder() + File.separator + "PlayerData" + File.separator, player.getUniqueId().toString() + ".yml");
+		playerDataFile = new File(plugin.getDataFolder() + File.separator + "PlayerData" + File.separator, "bb598933-f545-44cf-a965-c019807dfe2f" /*player.getUniqueId().toString()*/ + ".yml");
 		playerDataConfig = YamlConfiguration.loadConfiguration(playerDataFile);
 		
 		ItemStack newLifeItem = new ItemStack(Material.EMERALD_BLOCK, 1);
@@ -86,7 +86,7 @@ public class RebornMenu implements Listener {
 		skullMeta.setOwner(player.getName());
 		skullMeta.setDisplayName("§6§l" + player.getName());
 		ArrayList<String> skullLore = new ArrayList<String>();
-		skullLore.add("Life: " + playerDataConfig.getConfigurationSection("wich_life").getString("wich_life") /*+ playerDataConfig.get("wich_life")*/);
+		skullLore.add("Life: " + playerDataConfig.getConfigurationSection("wich_life").getInt("wich_life") /*+ playerDataConfig.get("wich_life")*/);
 		if (playerDataConfig.getConfigurationSection("addicted") == playerDataConfig.getConfigurationSection("addicted").getKeys(false)) {
 			skullLore.add("Isn't addicted.");
 		} else {

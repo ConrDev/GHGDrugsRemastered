@@ -13,15 +13,13 @@ import net.milkbowl.vault.economy.Economy;
 import nl.skelic.commands.*;
 import nl.skelic.events.ListenerClass;
 import nl.skelic.files.PlayerData;
-import nl.skelic.managers.ConfigManager;
 import nl.skelic.utils.SkullUtil;
 import nl.skelic.utils.Util;
 
 @SuppressWarnings("unused")
-public class Main extends JavaPlugin implements Listener {
+public class Main extends JavaPlugin {
 	
 	private static Economy econ = null;
-	private ConfigManager cfgm;
 	private static Main instance;
 	private Util util;
 	private SkullUtil skullUtil;
@@ -49,7 +47,6 @@ public class Main extends JavaPlugin implements Listener {
 		}
 		
 		instance = this;
-		cfgm = new ConfigManager();
 		
 		//Loading Events
 		PluginManager pm = Bukkit.getServer().getPluginManager();
@@ -82,23 +79,13 @@ public class Main extends JavaPlugin implements Listener {
 	public static Main getInstance() {
 		return instance;
 	}
-	
-	void reload() {
-		cfgm.reloadPlayers();
-	}
-	
-	public void loadConfigManager() {
-		cfgm.setup();
-		cfgm.savePlayers();
-		cfgm.reloadPlayers();
-	}
 
     public void loadConfiguration() {
         getConfig().options().copyDefaults(true);
-        getConfig().addDefault("cocaïne.addictive", true);
+        /*getConfig().addDefault("cocaïne.addictive", true);
         getConfig().addDefault("cocaïne.after_how_many_times", 1);
         getConfig().addDefault("weed.addictive", true);
-        getConfig().addDefault("weed.after_how_many_times", 5);
+        getConfig().addDefault("weed.after_how_many_times", 5);*/
         saveConfig();
         getLogger().info("Configuratie Reloaded!");
         Bukkit.broadcastMessage(prefix + ChatColor.GOLD + "De GHGDrugs Remastered Plugin is loaded");
